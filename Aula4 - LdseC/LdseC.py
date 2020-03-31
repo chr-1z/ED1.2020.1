@@ -1,80 +1,95 @@
 class No():
-    def __init__(self,valor,proximo):
+    def __init__(self, valor = None, proximo = None):
         self.info = valor
         self.prox = proximo
 
-class LdseC():
+class Ldsec():
     def __init__(self):
         self.prim = None
         self.ult = None
         self.quant = 0
 
-    def inserirInicio(self,valor):
-        if self.quant == 0:
-            self.prim = self.ult = No(valor, self.prim)
-            self.ult.prox = self.prim
-        else:
-            self.prim = No(valor,self.prim)
-            self.ult.prox = self.prim
-        self.quant += 1
-
-    def inserirFim(self,valor):
+    def inserirInicio(self, valor):
         if self.quant == 0:
             self.prim = self.ult = No(valor, None)
+            self.prim.prox = self.prim
         else:
-            self.ult.prox = self.ult = No(valor, None)
+            self.prim = self.ult.prox = No(valor, self.prim)
+        self.quant += 1
+
+    def inserirFim(self, valor):
+        if self.quant == 0:
+            self.prim = self.ult = No(valor, None)
+            self.prim.prox = self.prim
+        else:
+            self.ult.prox = self.ult = No(valor, self.prim)
         self.quant += 1
 
     def removerInicio(self):
         if self.quant == 1:
             self.prim = self.ult = None
         else:
-            self.prim = self.prim.prox
+            self.ult.prox = self.prim = self.prim.prox
         self.quant -= 1
 
     def removerFim(self):
         if self.quant == 1:
             self.prim = self.ult = None
+
         else:
             aux = self.prim
             while aux.prox != self.ult:
                 aux = aux.prox
-            self.ult = aux
-            self.ult.prox = None
+            ult = aux
+            ult.prox = self.prim
         self.quant -= 1
 
-    '''
-
-    aux = ant = self.prim
-    while aux != self.ult:
-        ant = aux
-        aux = aux.prox
-    self.ult = ant
-    self.ult.prox = None
-
-    '''
-               
     def show(self):
         aux = self.prim
         for i in range(self.quant):
-            print(aux.info)
+            print(aux.info, end = "")
+            aux = aux.prox
 
-    def estaVazia(self):
-        return self.quant == 0
+    def inserirAposDet(self, valor1, valor2):
+        aux = self.prim
+        while aux != None and aux.info != valor2:
+            aux = aux.prox
+        aux.prox = No(valor1, aux.prox)
+        if aux == self.ult:
+            self.ult = aux.prox
+        self.quant += 1
+        
+            
 
-    def getPrim(self):
-        return self.prim.info
 
-    def getUlt(self):
-        return self.ult.info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
     
-
-    
-
-    
-        
-        
-        
-        
     
